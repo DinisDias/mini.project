@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Mini.Projeto.Data;
+using Mini.Projeto.Data.Map;
 
 #nullable disable
 
 namespace Mini.Projeto.Migrations
 {
-    [DbContext(typeof(BooksDBContex))]
-    [Migration("20230427110440_InitialDB")]
-    partial class InitialDB
+    [DbContext(typeof(BooksDBContext))]
+    [Migration("20230505093948_DataBase")]
+    partial class DataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

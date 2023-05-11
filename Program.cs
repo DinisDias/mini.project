@@ -1,38 +1,20 @@
-using Microsoft.EntityFrameworkCore;
-using Mini.Projeto.Data;
-using Mini.Projeto.Repositories.Interfaces;
-using Mini.Projeto.Repositories.Mini.Projeto.Repositories;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddEntityFrameworkSqlServer()
-    .AddDbContext<BooksDBContex>(
-    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
-    );
-
-
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+namespace Mini.Projeto
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

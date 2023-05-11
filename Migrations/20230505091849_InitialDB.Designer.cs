@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mini.Projeto.Data.Map;
 
@@ -10,9 +11,11 @@ using Mini.Projeto.Data.Map;
 namespace Mini.Projeto.Migrations
 {
     [DbContext(typeof(BooksDBContext))]
-    partial class BooksDBContexModelSnapshot : ModelSnapshot
+    [Migration("20230505091849_InitialDB")]
+    partial class InitialDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

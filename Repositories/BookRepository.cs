@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mini.Projeto.Models;
-using Mini.Projeto.Data;
 using Mini.Projeto.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Mini.Projeto.Data.Map;
 
 namespace Mini.Projeto.Repositories
 {
@@ -13,9 +9,9 @@ namespace Mini.Projeto.Repositories
     {
         public class BookRepository : IBookRepository
         {
-            private readonly BooksDBContex _dbContext;
+            private readonly BooksDBContext _dbContext;
 
-            public BookRepository(BooksDBContex booksDBContex)
+            public BookRepository(BooksDBContext booksDBContex)
             {
                 _dbContext = booksDBContex;
             }
@@ -27,7 +23,7 @@ namespace Mini.Projeto.Repositories
 
             public async Task<BookModel> SearchBookIsbn(string isbn)
             {
-                return await _dbContext.Book.FirstOrDefaultAsync(x => x.isbn == isbn && !x.isDeleted);
+                return await _dbContext.Book.FirstOrDefaultAsync(x => x.isbn == isbn);
             }
 
             public async Task<BookModel> Add(BookModel book)

@@ -10,8 +10,12 @@ namespace Mini.Projeto.Data
         {
             builder.HasKey(x => x.isbn);
             builder.Property(x => x.bookName).IsRequired();
-            builder.Property(x => x.author).IsRequired();
             builder.Property(x => x.price).IsRequired();
+
+            builder.HasOne(x => x.author)
+                .WithMany()
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

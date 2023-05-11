@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Mini.Projeto.Repositories.Interfaces;
+using static Mini.Projeto.Models.AuthorModel;
 
 namespace Mini.Projeto.Models
 {
@@ -23,9 +24,9 @@ namespace Mini.Projeto.Models
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var isbn = value as string;
-            if (isbn == null)
+            if (string.IsNullOrWhiteSpace(isbn))
             {
-                return new ValidationResult("Isbn is not valid.");
+                return new ValidationResult("The ISBN is invalid.");
             }
 
             var bookRepository = (IBookRepository)validationContext.GetService(typeof(IBookRepository));
@@ -40,20 +41,25 @@ namespace Mini.Projeto.Models
         }
     }
 
-
-
     public class BookModel
     {
+        [Required]
         [UniqueIsbn]
-        public string? isbn { get; set; }
+        public string isbn { get; set; }
 
-        public string? bookName { get; set; }
+        [Required]
+        public string bookName { get; set; }
 
-        public string? author { get; set; }
+        [Required]
+        public string author { get; set; }
 
         [NonNegativePrice]
         public decimal price { get; set; }
 
         public bool isDeleted { get; set; } = false;
+        public int AuthorId { get; set; }
+        public AuthorModel Author { get; set; }
+
     }
 }
+
